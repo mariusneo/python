@@ -1,0 +1,1 @@
+The sample code is taken from : http://docs.python.org/2/tutorial/ webpage
