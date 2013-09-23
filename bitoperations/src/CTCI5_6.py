@@ -18,6 +18,6 @@ def swapBits(a):
     return aSwapped
 
 
-a = 14
+a = 31
 print bin(a)
 print bin(swapBits(a))
