@@ -1,0 +1,1 @@
+Got to http://www.djangobook.com/en/2.0/chapter07.html
