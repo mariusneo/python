@@ -66,28 +66,26 @@ def partition_array(a, k):
 
 def main():
     filenames = list_dir_sorted('../img/')
-    aspect_ratios=[]
-    images = {}
-    resized_widths=[] 
-    sum_widths = 0
-
+    
     gallery_width =1280    
     gallery_height = 1024
     lines_per_screen = 4
     ideal_height = gallery_height/ lines_per_screen        
 
-    
+    aspect_ratios=[]
+    sum_widths = 0
     for i in range(len(filenames)):
         filename ='../img/'+filenames[i]
         img = Image.open(filename)
-        images[filenames[i]] = img
         #aspect_ratio = width / height
         aspect_ratio  = img.size[0]/float(img.size[1])
         aspect_ratios.append(aspect_ratio)
         resized_width = ideal_height *  aspect_ratio
-        resized_widths.append(resized_width)
         sum_widths += resized_width
-        
+    
+    # the previous calculations were performed only for
+    # obtaining the number of rows on which the photos 
+    # will have to be displayed    
     rows = sum_widths/ gallery_width
      
     #Distribute photos over rows using the aspect aspect_ratio as weight
@@ -123,8 +121,11 @@ def main():
             index += 1
 
         sum_ratios = reduce(lambda x, y : x+y, buffer_aspect_ratios)            
-        for i in range(len(buffer_filenames)):                
-           f.write('            <img src="%s" height="%s" width="%s"/>\n' % (buffer_filenames[i], 
+        for i in range(len(buffer_filenames)):
+            # note that the height of the image is calculated also based
+            # on the gallery_width (and not gallery_height) in order to
+            # preserve intact the aspect ratio of the photos 
+            f.write('            <img src="%s" height="%s" width="%s"/>\n' % (buffer_filenames[i], 
                                                                           gallery_width/sum_ratios, 
                                                                           gallery_width/sum_ratios * buffer_aspect_ratios[i]))
         buffer_filenames = []
