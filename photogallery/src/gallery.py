@@ -124,7 +124,10 @@ def main():
         for i in range(len(buffer_filenames)):
             # note that the height of the image is calculated also based
             # on the gallery_width (and not gallery_height) in order to
-            # preserve intact the aspect ratio of the photos 
+            # preserve intact the aspect ratio of the photos
+            #
+            # gallery_width/ sum(ratio_on_current_line) ~= ideal_height due to the fact 
+            # that ideal_height * sum(ratios_of_all_the_images) / gallery_width = rows             
             f.write('            <img src="%s" height="%s" width="%s"/>\n' % (buffer_filenames[i], 
                                                                           gallery_width/sum_ratios, 
                                                                           gallery_width/sum_ratios * buffer_aspect_ratios[i]))
